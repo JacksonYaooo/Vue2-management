@@ -26,7 +26,7 @@
 
 <script>
 import {validateUsername} from "@/utils/validate"
-import axios from "axios"
+import {GetCaptchaCodeApi} from "@/request/api"
 export default {
   data (){
     return{
@@ -69,12 +69,11 @@ export default {
   },
   methods:{
     getCaptchacode(){
-      axios.get("http://xue.cnkdl.cn:23683/prod-api/captchaImage")
-    .then(res=>{
-      if(res.data.code===200){
-        this.captchaSrc = "data:image/gif;base64," + res.data.img
-      }
-    })
+      GetCaptchaCodeApi().then(res=>{
+        if(res.code===200){
+          this.captchaSrc = "data:image/gif;base64," + res.img
+        }
+      })
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
