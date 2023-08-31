@@ -90,7 +90,15 @@ export default {
           })
 
           if(!res) return; 
-          console.log(res);
+
+          // 提示用户登陆成功
+          this.$message.success({message:"登录成功！"})
+          // 清除uuid
+          localStorage.removeItem("eQAQ-captcha-uuid")
+          // 保存token
+          localStorage.setItem("eQAQ-authorization-token", res.token)
+          // 跳转首页
+          this.$router.push("/")
 
         } else {
           // 校验未通过
