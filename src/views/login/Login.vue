@@ -71,15 +71,12 @@ export default {
     async getCaptchacode(){
       let res = await GetCaptchaCodeApi()
 
-      if(res.code===200){
-        // 展示验证码图片
-        this.captchaSrc = "data:image/gif;base64," + res.img
-        // 保存验证码的uuid，登录时作为参数传给后端
-        localStorage.setItem("eQAQ-captcha-uuid", res.uuid)
-      }else{
-        // 请求失败走这里
-        this.$message.error(res.msg)
-      }
+      // 接收到res为false说明code!=200，就阻断
+      if(!res) return; 
+      // 展示验证码图片
+      this.captchaSrc = "data:image/gif;base64," + res.img
+      // 保存验证码的uuid，登录时作为参数传给后端
+      localStorage.setItem("eQAQ-captcha-uuid", res.uuid)
     },
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
@@ -92,12 +89,9 @@ export default {
             uuid:localStorage.getItem("eQAQ-captcha-uuid")
           })
 
-          if(res.code === 200){
-            console.log(res);
-          }else{
-            this.$message.error(res.msg)
-          }
-          
+          if(!res) return; 
+          console.log(res);
+
         } else {
           // 校验未通过
           this.$message({
