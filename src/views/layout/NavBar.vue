@@ -1,10 +1,14 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{isColl:isCollapse}">
     <!-- 
       @open="handleOpen"
       @close="handleClose"
       :unique-opened="true" 控制是否只保持一个子菜单的展开
      -->
+     <h1 class="main-logo">
+      <img src="../../assets/images/logo.png" alt="" width="32px">
+      <span v-show="!isCollapse">通用后台管理系统</span>
+     </h1>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -66,6 +70,26 @@ export default {
   position: relative;
   .el-menu {
     border: none;
+  }
+  // & 同时拥有navbar类和isColl类的标签，继承父级
+  &.isColl{
+    width: 64px;
+  }
+  img{
+    vertical-align: middle;
+  }
+  .main-logo{
+    padding: 10px 16px;
+    position: relative;
+    span{
+      min-width: 130px;
+      color: #fff;
+      font-weight: bold;
+      display: inline-block;
+      position: absolute;
+      left: 62px;
+      top: 16px;
+    }
   }
 }
 </style>
