@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
+import {GetUserRoutersApi} from '@/request/api'
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,7 +31,7 @@ const router = new VueRouter({
 })
 
 // 全局路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   const token =  localStorage.getItem("eQAQ-authorization-token")
   // 管理系统常见的两个经典逻辑
   // 1.如果用户访问登录页面，但是token已存在，则应跳转到首页
@@ -41,6 +43,13 @@ router.beforeEach((to, from, next) => {
   if(to.path !== "/login" && !token){
     next("/login");
     return
+  }
+
+  if(token && store.state.userMenuData.menuData.length == 0){
+    
+    let GetUserRoutersApiRes = await GetUserRoutersApi()
+    console.log(GetUserRoutersApiRes); 
+    
   }
 
   next()
