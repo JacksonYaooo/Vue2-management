@@ -48,8 +48,24 @@ router.beforeEach(async(to, from, next) => {
   if(token && store.state.userMenuData.menuData.length == 0){
     
     let GetUserRoutersApiRes = await GetUserRoutersApi()
-    console.log(GetUserRoutersApiRes); 
+    console.log("用户菜单数据GetUserRoutersApiRes为:",GetUserRoutersApiRes); 
     
+    // 请求到的GetUserRoutersApiRes和需要的menuData结构不一样，所以需要通过GetUserRoutersApiRes生成menuData
+    let newUserMenuData = [{title:"首页",path:"/"}];
+    let ret = GetUserRoutersApiRes.data.map(item=>{
+      return{
+        title:item.meta.title,
+        path:item.path,
+        children:item.children.map(sitem=>{
+          return{
+            title:sitem.meta.title,
+            path:item.path+"/"+sitem.path
+          }
+        }),
+      }
+    })
+    newUserMenuData = [...newUserMenuData,...ret];
+    console.log(newUserMenuData);
   }
 
   next()
