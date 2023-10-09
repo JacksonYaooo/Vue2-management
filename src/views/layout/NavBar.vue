@@ -42,41 +42,13 @@ import { mapState } from 'vuex'
 export default {
   data(){
     return {
-      menuData:[
-        {
-          title:"首页",
-          path:"/",
-        },
-        {
-          title:"客户管理",
-          path:"/customer",
-          children:[
-            {title:"客户档案",path:"/customer/customer",},
-            {title:"拜访记录",path:"/customer/visit",},
-          ],
-        },
-        {
-          title:"修养预约",
-          path:"/business",
-          children:[
-            {title:"预约信息",path:"/business/appointment",},
-            {title:"服务项",path:"/business/service",},
-            {title:"结算单",path:"/business/statement",},
-          ],
-        },
-        {
-          title:"流程管理",
-          path:"/flow",
-          children:[
-            {title:"审核流程定义",path:"/flow/definition",},
-          ]
-        }
-      ],
+      
     }
   },
   computed:{
     ...mapState({
       isCollapse:state=>state.navCollapse.isCollapse,
+      menuData:state=>state.userMenuData.menuData,
     })
   }
 }
