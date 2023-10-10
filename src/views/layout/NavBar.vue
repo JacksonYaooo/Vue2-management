@@ -87,8 +87,15 @@ export default {
   }
 }
 
-// 解决添加div后的样式显示bug
+// 解决添加div后的样式显示效果bug
 .isColl .el-submenu__title span, ::v-deep .el-menu--collapse .el-submenu__title .el-submenu__icon-arrow{
   display: none;
+}
+// 处理子菜单的背景 和 hover背景
+.el-submenu .el-menu-item{
+  background-color: rgb(4, 57, 27) !important;
+}
+.el-menu .el-menu-item:hover,::v-deep .el-submenu__title:hover{
+  background-color: rgb(35, 107, 66) !important;
 }
 </style>
