@@ -22,14 +22,15 @@
       <div v-for="item,idx in menuData" :key="idx">
         <el-submenu :index="item.path" v-if="item.children">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <!-- <i class="el-icon-location"></i> -->
+            <svg-icon :icon-file-name=item.icon style="margin: 0 10px 0 4px;"></svg-icon>
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item :index="sitem.path" v-for="sitem,sidx in item.children" :key="sidx">{{ sitem.title }}</el-menu-item>
         </el-submenu>
 
         <el-menu-item :index="item.path" v-else>
-          <i class="el-icon-menu"></i>
+          <svg-icon :icon-file-name=item.icon style="margin: 0 10px 0 4px;"></svg-icon>
           <span slot="title">{{ item.title }}</span>
         </el-menu-item>
       </div>

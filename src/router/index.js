@@ -51,12 +51,13 @@ router.beforeEach(async(to, from, next) => {
     console.log("用户菜单数据GetUserRoutersApiRes为:",GetUserRoutersApiRes); 
     
     // 请求到的GetUserRoutersApiRes和需要的menuData结构不一样，所以需要通过GetUserRoutersApiRes生成menuData
-    let newUserMenuData = [{title:"首页",path:"/"}];
+    let newUserMenuData = [{title:"首页",path:"/",icon:"dashboard"}];
     let ret = GetUserRoutersApiRes.data.map(item=>{
       if(item.children){
         return{
           title:item.meta.title,
           path:item.path,
+          icon:item.meta.icon,
           children:item.children.map(sitem=>{
             return{
               title:sitem.meta.title,
@@ -67,6 +68,7 @@ router.beforeEach(async(to, from, next) => {
       }else{
         return{
           title:item.meta.title,
+          icon:item.meta.icon,
           path:item.path,
         }
       }
