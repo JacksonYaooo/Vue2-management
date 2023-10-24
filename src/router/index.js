@@ -49,6 +49,7 @@ router.beforeEach(async(to, from, next) => {
     
     let GetUserRoutersApiRes = await GetUserRoutersApi()
     console.log("用户菜单数据GetUserRoutersApiRes为:",GetUserRoutersApiRes); 
+    if(!GetUserRoutersApiRes)return;
     
     // 请求到的GetUserRoutersApiRes和需要的menuData结构不一样，所以需要通过GetUserRoutersApiRes生成menuData
     let newUserMenuData = [{title:"首页",path:"/",icon:"dashboard"}];

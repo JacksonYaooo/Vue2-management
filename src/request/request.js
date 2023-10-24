@@ -1,5 +1,6 @@
 import axios from "axios"
 import { Message } from 'element-ui'
+import router from "@/router";
 
 
 const instance =  axios.create({
@@ -30,6 +31,12 @@ instance.interceptors.response.use(res =>{
     // 这里把vue写法的this.$message改成js函数Message，上方引入函数
     // 增加一个字符串防止没有msg时出现空白的情况
     Message.error(res_data.msg || '网络请求失败')
+    if(res_data.code == 401){
+      // 401一般表示token过期或者没有带
+      localStorage.removeItem('eQAQ-authorization-token');
+      router.push("/login")
+    }
+
     return false
   }
 
